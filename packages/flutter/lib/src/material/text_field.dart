@@ -16,6 +16,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/src/material/text_selection_theme.dart';
 
 import 'adaptive_text_selection_toolbar.dart';
 import 'color_scheme.dart';
@@ -1756,7 +1757,7 @@ class _TextFieldState extends State<TextField>
           contentInsertionConfiguration: widget.contentInsertionConfiguration,
           contextMenuBuilder:
               widget.contextMenuBuilder ??
-              Theme.of(context).textSelectionTheme.contextMenuBuilder ??
+              TextSelectionTheme.of(context).contextMenuBuilder ??
               _defaultContextMenuBuilder,
           spellCheckConfiguration: spellCheckConfiguration,
           magnifierConfiguration:

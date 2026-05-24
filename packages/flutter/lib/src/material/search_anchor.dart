@@ -11,6 +11,7 @@ import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/src/material/text_selection_theme.dart';
 import 'package:flutter/widgets.dart';
 
 import 'adaptive_text_selection_toolbar.dart';
@@ -1822,7 +1823,7 @@ class _SearchBarState extends State<SearchBar> {
                             scrollPadding: widget.scrollPadding,
                             contextMenuBuilder:
                                 widget.contextMenuBuilder ??
-                                Theme.of(context).textSelectionTheme.contextMenuBuilder ??
+                                TextSelectionTheme.of(context).contextMenuBuilder ??
                                 _defaultContextMenuBuilder,
                             smartDashesType: widget.smartDashesType,
                             smartQuotesType: widget.smartQuotesType,
