@@ -1262,7 +1262,7 @@ class _SearchAnchorWithSearchBar extends SearchAnchor {
     super.textInputAction,
     super.keyboardType,
     EdgeInsets scrollPadding = const EdgeInsets.all(20.0),
-    EditableTextContextMenuBuilder contextMenuBuilder = SearchBar._defaultContextMenuBuilder,
+    EditableTextContextMenuBuilder contextMenuBuilder = _SearchBarState._defaultContextMenuBuilder,
     super.enabled,
     super.smartDashesType,
     super.smartQuotesType,
@@ -1431,7 +1431,7 @@ class SearchBar extends StatefulWidget {
     this.textInputAction,
     this.keyboardType,
     this.scrollPadding = const EdgeInsets.all(20.0),
-    this.contextMenuBuilder = _defaultContextMenuBuilder,
+    this.contextMenuBuilder,
     this.readOnly = false,
     this.smartDashesType,
     this.smartQuotesType,
@@ -1623,16 +1623,6 @@ class SearchBar extends StatefulWidget {
   ///    configuration option on a standalone [TextField].
   final SmartQuotesType? smartQuotesType;
 
-  static Widget _defaultContextMenuBuilder(
-    BuildContext context,
-    EditableTextState editableTextState,
-  ) {
-    if (SystemContextMenu.isSupportedByField(editableTextState)) {
-      return SystemContextMenu.editableText(editableTextState: editableTextState);
-    }
-    return AdaptiveTextSelectionToolbar.editableText(editableTextState: editableTextState);
-  }
-
   @override
   State<SearchBar> createState() => _SearchBarState();
 }
@@ -1656,6 +1646,16 @@ class _SearchBarState extends State<SearchBar> {
     _internalStatesController.dispose();
     _internalFocusNode?.dispose();
     super.dispose();
+  }
+
+  static Widget _defaultContextMenuBuilder(
+    BuildContext context,
+    EditableTextState editableTextState,
+  ) {
+    if (SystemContextMenu.isSupportedByField(editableTextState)) {
+      return SystemContextMenu.editableText(editableTextState: editableTextState);
+    }
+    return AdaptiveTextSelectionToolbar.editableText(editableTextState: editableTextState);
   }
 
   @override
@@ -1820,7 +1820,10 @@ class _SearchBarState extends State<SearchBar> {
                             textInputAction: widget.textInputAction,
                             keyboardType: widget.keyboardType,
                             scrollPadding: widget.scrollPadding,
-                            contextMenuBuilder: widget.contextMenuBuilder,
+                            contextMenuBuilder:
+                                widget.contextMenuBuilder ??
+                                Theme.of(context).textSelectionTheme.contextMenuBuilder ??
+                                _defaultContextMenuBuilder,
                             smartDashesType: widget.smartDashesType,
                             smartQuotesType: widget.smartQuotesType,
                           ),
