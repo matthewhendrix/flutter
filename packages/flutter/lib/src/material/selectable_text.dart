@@ -15,6 +15,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/src/material/text_selection_theme.dart';
 
 import 'adaptive_text_selection_toolbar.dart';
 import 'desktop_text_selection.dart';
@@ -799,7 +800,7 @@ class _SelectableTextState extends State<SelectableText>
         autofillHints: null,
         contextMenuBuilder:
             widget.contextMenuBuilder ??
-            Theme.of(context).textSelectionTheme.contextMenuBuilder ??
+            TextSelectionTheme.of(context).contextMenuBuilder ??
             _defaultContextMenuBuilder,
       ),
     );
